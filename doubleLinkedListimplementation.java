@@ -1,16 +1,19 @@
 public class DoubleLinkedList<T> {
  private LinkedListNode<T> Node;
+ private LinkedListNode<T> tail;
  public void insert(T data) {
 	 //first value
 	 if(Node==null) {
 		 Node=new LinkedListNode<>(data);
 		 Node.prev=null;
+         tail=Node;
 		 return;
 	 }
 	 //next values;
 	 LinkedListNode<T> newNode=new LinkedListNode<>(data);
-	 Node.next=newNode;
-	 newNode.prev=Node;
+	 tail.next=newNode;
+	 newNode.prev=tail;
+     tail=tail.next;
 //	 newNode.next=null;
  }
 public void insertFirst(T data){
@@ -116,26 +119,37 @@ while(temp!=null&&pos>1){
 }
  public void print() {
      LinkedListNode<T> temp=Node;
+     LinkedListNode<T> temp1=Node;
 	 if(temp==null) {
 		 return;
 	 }
 	 while(temp!=null) {
          System.out.print(temp.data+"->");
+         if(temp.next==null){
+             temp1=temp;
+         }
 		 temp=temp.next;
 	 }
      System.out.print("Null");
+     System.out.println();
+     while(temp1!=null){
+         System.out.print(temp1.data+"->");
+         temp1=temp1.prev;
+     }
+     System.out.print("null");
  }
  public static void main(String[] args) {
 	 DoubleLinkedList<Integer> list=new DoubleLinkedList<>();
 	 list.insert(4);
 	 list.insert(6);
-    // list.print();
-     list.insertAt(1,1);
-     // list.print();
-     list.insertFirst(3);
-     list.insertFirst(10);
-     list.insertAt(5,6);
-     // list.delete(2);
+     list.insert(7);
+    // // list.print();
+    //  list.insertAt(1,1);
+    //  // list.print();
+    //  list.insertFirst(3);
+    //  list.insertFirst(10);
+    //  list.insertAt(5,6);
+    //  // list.delete(2);
 	 list.print();
  }
 }
